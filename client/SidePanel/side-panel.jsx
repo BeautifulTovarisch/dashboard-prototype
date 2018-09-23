@@ -72,7 +72,7 @@ export class SidePanel extends React.Component {
               <StickyPanel className='text-white'>
                 <ul className='nav flex-column mt-4'>
                   <li className='nav-item'>
-                    <h4>Mous</h4>
+                    <h4>MOUs</h4>
                   </li>
                   {
                       clients.map( function( { client_name }, i ) {

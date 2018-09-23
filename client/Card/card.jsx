@@ -7,6 +7,7 @@ export class Card extends React.Component {
         const {
             title,
             header,
+            footer,
             centered,
             children,
             className
@@ -22,6 +23,7 @@ export class Card extends React.Component {
               <div className={ `card-body ${ centerText }` }>
                 { children }
               </div>
+              { footer && <div className='card-footer'>{ footer() }</div> }
             </div>
         );
     }

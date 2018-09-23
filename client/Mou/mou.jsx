@@ -11,12 +11,13 @@ import Card from '../Card/card.jsx';
 import Modal from '../Modal/modal.jsx';
 
 import BarChart from '../BarChart/bar-chart.jsx';
+import Progress from '../Progress/progress.jsx';
 import DonutChart from '../DonutChart/donut-chart.jsx';
 import TaskOrderTable from '../TaskOrder/task-order-table.jsx';
 
 import EditMouForm from '../Mou/mou-edit.jsx';
 
-import { formatCurrency } from '../utilities';
+import { formatDate, formatCurrency } from '../utilities';
 
 export class Mou extends React.Component {
     constructor( props ) {
@@ -65,8 +66,8 @@ export class Mou extends React.Component {
                     Add Task Order
                   </button>
                   <Modal
-                    title="Edit Mou"
-                    triggerText="Edit Mou"
+                    title="Edit MOU"
+                    triggerText="Edit MOU"
                     buttonClass="btn btn-outline-info float-right" >
                     <EditMouForm />
                   </Modal>
@@ -76,29 +77,48 @@ export class Mou extends React.Component {
                 <div className='col-md'>
                   <Card className='h-100'>
                     <h4 className='card-title'>
-                      Client
+                      MOU Information
                     </h4>
-                    <h1 className='card-text text-center'>
-                      { mou.client_name }
-                    </h1>
+                    <hr />
+                    <ul className='list-unstyled'>
+                      <li>
+                        <span className='text-muted'>Client</span>
+                        <p>{ mou.client_name }</p>
+                      </li>
+                      <li>
+                        <span className='text-muted'>Value</span>
+                        <p>{ formatCurrency( mou.value ) }</p>
+                      </li>
+                      <li>
+                        <span className='text-muted'>Start Date</span>
+                        <p>{ formatDate( mou.start_date ) }</p>
+                      </li>
+                      <li>
+                        <span className='text-muted'>End Date</span>
+                        <p>{ formatDate( mou.end_date ) }</p>
+                      </li>
+                    </ul>
                   </Card>
                 </div>
                 <div className='col-md'>
-                  <Card className='h-100' >
-                    <h4 className='card-title'>Value</h4>
-                    <h1 className='card-text text-center'>
-                      { formatCurrency( mou.value ) }
-                    </h1>
-                  </Card>
-                </div>
-                <div className='col-md'>
-                  <Card className='h-100'>
+                  <Card
+                    footer={ () =>
+                             <Progress
+                                   percent={
+                                       ( ( budgetAllocated( mou.task_orders )
+                                           / mou.value ) * 100 )
+
+                                   } />
+                             }
+                    centered
+                    className='h-100' >
                     <h4 className='card-title'>
-                     Budget Allocated
+                      Budget Allocated
                     </h4>
                     <h1 className='card-text text-center'>
                       { formatCurrency( budgetAllocated( mou.task_orders ) ) }
                     </h1>
+
                   </Card>
                 </div>
               </div>

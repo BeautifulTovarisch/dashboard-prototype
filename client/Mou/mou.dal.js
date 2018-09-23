@@ -3,7 +3,8 @@
 import { get } from 'axios';
 
 import {
-    sumBy
+    sumBy,
+    divide
 } from 'lodash/fp';
 
 export const getMou = id =>
@@ -13,3 +14,4 @@ const sumMouBy = key => mous =>
       mous.reduce( ( acc, next ) => acc + next[ key ], 0 );
 
 export const budgetAllocated = sumBy( 'budget' );
+    
