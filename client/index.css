@@ -1,0 +1,4 @@
+/* Needed for accessible modal */
+.lock-scroll {
+    overflow: hidden;
+}
