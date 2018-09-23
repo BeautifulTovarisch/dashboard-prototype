@@ -3,10 +3,8 @@
 import React from 'react';
 
 import {
-    toXY,
     getMou,
-    activeCompanies,
-    revenueByCompany
+    budgetAllocated
 } from './mou.dal';
 
 import Card from '../Card/card.jsx';
@@ -16,7 +14,7 @@ import BarChart from '../BarChart/bar-chart.jsx';
 import DonutChart from '../DonutChart/donut-chart.jsx';
 import TaskOrderTable from '../TaskOrder/task-order-table.jsx';
 
-import EditInsitutionForm from '../Mou/mou-edit.jsx';
+import EditMouForm from '../Mou/mou-edit.jsx';
 
 import { formatCurrency } from '../utilities';
 
@@ -25,7 +23,7 @@ export class Mou extends React.Component {
         super( props );
         this.state = {
             mou: {
-                companies: []
+                task_orders: []
             }
         };
     }
@@ -64,13 +62,13 @@ export class Mou extends React.Component {
                     { mou.mou_name }
                   </h2>
                   <button className='btn btn-outline-success float-right ml-1'>
-                    Add Company
+                    Add Task Order
                   </button>
                   <Modal
                     title="Edit Mou"
-                    triggerText="Edit Insitution"
+                    triggerText="Edit Mou"
                     buttonClass="btn btn-outline-info float-right" >
-                    <EditInsitutionForm />
+                    <EditMouForm />
                   </Modal>
                 </div>
               </div>
@@ -78,28 +76,28 @@ export class Mou extends React.Component {
                 <div className='col-md'>
                   <Card className='h-100'>
                     <h4 className='card-title'>
-                      Startups
+                      Client
                     </h4>
                     <h1 className='card-text text-center'>
-                      { mou.num_startups }
+                      { mou.client_name }
                     </h1>
                   </Card>
                 </div>
                 <div className='col-md'>
                   <Card className='h-100' >
-                    <h4 className='card-title'>Licenses</h4>
+                    <h4 className='card-title'>Value</h4>
                     <h1 className='card-text text-center'>
-                      { mou.num_licenses }
+                      { formatCurrency( mou.value ) }
                     </h1>
                   </Card>
                 </div>
                 <div className='col-md'>
                   <Card className='h-100'>
                     <h4 className='card-title'>
-                      License Income
+                     Budget Allocated
                     </h4>
                     <h1 className='card-text text-center'>
-                      { formatCurrency( mou.license_income ) }
+                      { formatCurrency( budgetAllocated( mou.task_orders ) ) }
                     </h1>
                   </Card>
                 </div>
@@ -136,7 +134,7 @@ export class Mou extends React.Component {
                   <Card className='h-100'>
                     <h4 className='card-title'>Revenue by Company</h4>
                     <BarChart
-                      data={ revenueByCompany( mou.companies ) }
+                      data={ [] }
                       height={ 325 }
                       yLabel="Revenue ($)"
                       marginTop={ 15 }

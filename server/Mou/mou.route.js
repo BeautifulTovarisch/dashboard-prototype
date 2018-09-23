@@ -26,6 +26,19 @@ router.get('/', async( req, res ) => {
     }
 });
 
+router.get( '/id/:id', async( req, res ) => {
+    try {
+        const { id } = req.params;
+        const mou = await new Mou({ id: id })
+              .fetch({ withRelated: [ 'task_orders' ] });
+        return res.json( mou );
+    } catch( e ) {
+        logger.error( e.message );
+        return res.status( 500 )
+            .send({ message: "Error fetching MOU" });
+    }
+});
+
 router.get( '/clients', async( req, res ) => {
     try {
         const clients = await knex( 'mou' )

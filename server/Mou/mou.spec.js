@@ -42,6 +42,26 @@ test( '/GET', async t => {
     
 });
 
+test( '/GET/:id', async t => {
+    const { app } = t.context;
+    
+    const mou = await new Mou({
+        start_date: start_date,
+        end_date: end_date,
+        client_name: "Test Client",
+        value: 5000000
+    }).save();
+
+    const { status, body } = await request( app )
+          .get( `/id/${ mou.get( 'id' ) }` );
+
+    t.is( status, 200 );
+    t.is( body.client_name, 'Test Client' );
+    t.is( body.value, 5000000 );
+    t.truthy( body.task_orders );
+
+});
+
 test( '/GET/clients', async t => {
     const { app } = t.context;
 
