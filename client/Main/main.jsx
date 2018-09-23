@@ -38,6 +38,7 @@ export class Main extends React.Component {
     }
     render() {
         const { mous } = this.state;
+
         return (
             <main className='col-md-10 col-sm-12 mt-2'>
               <div className='row mb-3'>
