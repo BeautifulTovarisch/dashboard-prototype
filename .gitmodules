@@ -1,0 +1,3 @@
+[submodule "client/tejas"]
+	path = client/tejas
+	url = git@github.com:BeautifulTovarisch/tejas.git
