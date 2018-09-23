@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { keys } from 'lodash';
+
 import {
     formatDate,
     formatCurrency,
@@ -18,40 +20,45 @@ export class MouTable extends React.Component {
               <table className='table table-borderless'>
                 <thead>
                   <tr>
-                    <th>Mou</th>
-                    <th className='text-right'>Client</th>
+                    <th>Client</th>
                     <th className='text-right'>Value</th>
-                    <th className='text-right'>Start Date</th>
-                    <th className='text-right'>End Date</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                   </tr>
                 </thead>
-                <tbody>
                   {
-                      mous.map( function( mou ) {
-                          return (
-                              <tr key={ mou.id }>
-                                <td>
-                                  <Link to={`/mou/${ mou.id }`}>
-                                    Details
-                                  </Link>
-                                </td>
-                                <td className='text-right'>
-                                  { mou.client_name }
-                                </td>
-                                <td className='text-right'>
-                                  { formatCurrency( mou.value ) }
-                                </td>
-                                <td className='text-right'>
-                                  { formatDate( mou.start_date ) }
-                                </td>
-                                <td className='text-right'>
-                                  { formatDate( mou.end_date ) }
-                                </td>
+                    keys( mous ).map( function( client, i ) {
+                        return (
+                            <tbody key={ i }>
+                              <tr>
+                                <td>{ client }</td>
                               </tr>
-                          );
+                              {
+                                  mous[client].map( function( mou ) {
+                                      return (
+                                          <tr key={ mou.id }>
+                                            <td className='text-right'>
+                                              <Link to={`/mou/${ mou.id }`}>
+                                                Details
+                                              </Link>
+                                            </td>
+                                            <td className='text-right'>
+                                              { formatCurrency( mou.value ) }
+                                            </td>
+                                            <td>
+                                              { formatDate( mou.start_date ) }
+                                            </td>
+                                            <td>
+                                              { formatDate( mou.end_date ) }
+                                            </td>
+                                          </tr>
+                                      );
+                                  })
+                              }
+                            </tbody>
+                        );
                       })
                   }
-                </tbody>
               </table>
             </div>
         );

@@ -10,6 +10,7 @@ import DonutChart from '../DonutChart/donut-chart.jsx';
 import {
     getMous,
     sumValues,
+    groupByClient,
     valueByClient,
     countByClientType
 } from './main.dal';
@@ -82,7 +83,7 @@ export class Main extends React.Component {
               <div className='row'>
                 <div className='col-md'>
                   <Card className='h-100' header='MOU details'>
-                    <MouTable mous={ mous }/>
+                    <MouTable mous={ groupByClient( mous ) } />
                   </Card>
                 </div>
               </div>
